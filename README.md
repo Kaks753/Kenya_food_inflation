@@ -280,7 +280,7 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 **Stephen Muema**  
 - Portfolio: [https://muemastephenportfolio.netlify.app/](https://muemastephenportfolio.netlify.app/)  
 - GitHub: [@Kaks753](https://github.com/Kaks753)  
-- LinkedIn: [Connect with me](https://linkedin.com/in/yourprofile)
+- LinkedIn: [Connect with me](www.linkedin.com/in/stephen-muema-617339359)
 
 ---
 
@@ -297,7 +297,7 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 
 For questions, suggestions, or collaboration opportunities:
 
-- **Email**: your.email@example.com
+- **Email**: musyokas753@gmail.com
 - **GitHub Issues**: [Open an issue](https://github.com/Kaks753/food-inflation/issues)
 
 ---
