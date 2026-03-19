@@ -232,7 +232,6 @@ if staples is None:
 
 # Sidebar
 with st.sidebar:
-    st.image("https://cdn-icons-png.flaticon.com/512/3892/3892646.png", width=100)
     st.title("🌾 Navigation")
     
     page = st.radio(
