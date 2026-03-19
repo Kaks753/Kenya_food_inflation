@@ -291,11 +291,11 @@ with st.sidebar:
 # ============================================================================
 if page == "🏠 Home Dashboard":
     
-    # Personalized Welcome with LOCAL TIME
+    # Welcome with LOCAL TIME
     from datetime import datetime
     import pytz
     
-    # Get Nairobi time (Kenya's timezone)
+    # Nairobi time (Kenya's timezone)
     nairobi_tz = pytz.timezone('Africa/Nairobi')
     nairobi_time = datetime.now(nairobi_tz)
     current_hour = nairobi_time.hour
@@ -306,8 +306,7 @@ if page == "🏠 Home Dashboard":
         greeting = "Good Afternoon"
     else:
         greeting = "Good Evening"
-    
-    # Better welcome message without "Visitor"
+        
     st.markdown(f"""
     <h1 class='main-header'>
         {greeting}! 🌾
