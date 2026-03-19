@@ -309,15 +309,38 @@ if page == "🏠 Home Dashboard":
     </h1>
     """, unsafe_allow_html=True)
     
-    # Welcome message
+
+    # welcome message section
     st.markdown("""
+    <style>
+        .info-box {
+            background-color: #1a4731;  /* Dark green - meets 4.5:1 contrast with white text */
+            color: #ffffff;  /* Pure white for maximum contrast */
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+            border-left: 5px solid #ffd700;  /* Gold accent */
+        }
+        .info-box h4 {
+            color: #ffffff;
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+        }
+        .info-box p {
+            color: #ffffff;
+            margin-bottom: 0;
+            opacity: 0.95;  /* Slight variation but maintains contrast */
+        }
+    </style>
+
     <div class='info-box'>
-    <h4>🌾 Welcome to Your Complete Food Price Intelligence System</h4>
-    <p>Your one-stop platform for tracking, analyzing, and forecasting food prices across Kenya. 
-    Everything you need is just one click away!</p>
+        <h4>🌾 Welcome to Your Complete Food Price Intelligence System</h4>
+        <p>Your one-stop platform for tracking, analyzing, and forecasting food prices across Kenya. 
+        Everything you need is just one click away!</p>
     </div>
     """, unsafe_allow_html=True)
-    
+
+     
  # Smart Key Metrics
     st.markdown("## Market Pulse")
     
@@ -463,39 +486,206 @@ if page == "🏠 Home Dashboard":
 # PAGE: PRICE EXPLORER
 # ============================================================================
 elif page == "📊 Price Explorer":
+    # Custom CSS for this page - with PROPER CONTRAST
+    st.markdown("""
+    <style>
+        /* Main header - dark text on light background */
+        .main-header {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: #1e3c72;  /* Dark blue */
+            text-align: center;
+            margin-bottom: 0.5rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+        }
+        
+        /* Info box - dark text on light background */
+        .info-box {
+            background-color: #f0f7ff;  /* Very light blue */
+            padding: 1.2rem;
+            border-radius: 10px;
+            border-left: 5px solid #1e3c72;
+            margin: 1rem 0;
+        }
+        .info-box p {
+            margin: 0;
+            color: #1e3c72;  /* Dark blue text */
+            font-size: 1.1rem;
+        }
+        .info-box strong {
+            color: #c44536;  /* Terra cotta for emphasis */
+        }
+        
+        /* Filter section - clean white with dark text */
+        .filter-section {
+            background-color: #ffffff;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1rem 0 2rem 0;
+            border: 1px solid #d1d5db;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        /* Override Streamlit default text colors */
+        .stSelectbox label, .stSlider label {
+            color: #1e3c72 !important;
+            font-weight: 500 !important;
+        }
+        
+        /* Section header - dark red with good contrast */
+        .section-header {
+            font-size: 1.8rem;
+            color: #b22222;  /* Firebrick red */
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            border-bottom: 3px solid #b22222;
+            padding-bottom: 0.5rem;
+        }
+        
+        /* Statistics cards - dark text on light gradients */
+        .metric-card {
+            background: linear-gradient(135deg, #e8eef7 0%, #d9e2ef 100%);
+            padding: 1.5rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            text-align: center;
+            border: 1px solid #c0cbd8;
+        }
+        .metric-label {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #1e3c72;  /* Dark blue text */
+        }
+        .metric-value {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+            color: #1e3c72;  /* Dark blue text */
+        }
+        .metric-unit {
+            font-size: 0.9rem;
+            color: #4a5568;  /* Dark gray text */
+            font-weight: 500;
+        }
+        
+        /* Insight cards - dark text on white */
+        .insight-card {
+            background-color: #ffffff;
+            padding: 1.5rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            height: 100%;
+            border-left: 5px solid;
+        }
+        .insight-card h4 {
+            margin-top: 0;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        .insight-card p, .insight-card li {
+            color: #1e293b;  /* Very dark slate */
+            font-size: 0.95rem;
+        }
+        .insight-card ul {
+            color: #1e293b;
+            padding-left: 1.2rem;
+        }
+        .insight-card li {
+            margin-bottom: 0.4rem;
+        }
+        
+        .insight-buyer { border-left-color: #2d6a4f; }
+        .insight-buyer h4 { color: #2d6a4f; }
+        .insight-seller { border-left-color: #b22222; }
+        .insight-seller h4 { color: #b22222; }
+        .insight-retail { border-left-color: #1e3c72; }
+        .insight-retail h4 { color: #1e3c72; }
+        .insight-wholesale { border-left-color: #b85e00; }
+        .insight-wholesale h4 { color: #b85e00; }
+        
+        /* Price tag - white text on dark gradient */
+        .price-tag {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+            display: inline-block;
+            margin: 0.5rem 0;
+        }
+        
+        /* Market summary box - white text on dark */
+        .summary-box {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+        }
+        .summary-box h4, .summary-box p {
+            color: white !important;
+        }
+        .summary-box strong {
+            color: #ffd966;  /* Light gold */
+        }
+        
+        /* Warning box */
+        .warning-box {
+            background-color: #fff3cd;
+            color: #856404;
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 5px solid #ffc107;
+        }
+        
+        /* Chart title override */
+        .gtitle {
+            fill: #1e3c72 !important;
+            font-weight: 700 !important;
+        }
+    </style>
+    """, unsafe_allow_html=True)
+    
     st.markdown("<h1 class='main-header'>📊 Price Explorer</h1>", unsafe_allow_html=True)
     
+    # Simple info box
     st.markdown("""
     <div class='info-box'>
-    <p><strong>Explore historical price trends</strong> for different commodities across regions and time periods.</p>
+        <p><strong>🔍 Explore historical price trends</strong> for different commodities across regions and time periods.</p>
     </div>
     """, unsafe_allow_html=True)
     
-    # Filters
-    col1, col2, col3 = st.columns(3)
-    
-    commodity_options = sorted(staples['cm_name'].unique())
-    region_options = ['All Regions'] + sorted(staples['adm1_name'].unique().tolist())
-    
-    with col1:
-        selected_commodity = st.selectbox(
-            "Select Commodity",
-            commodity_options
-        )
-    
-    with col2:
-        selected_region = st.selectbox(
-            "Select Region",
-            region_options
-        )
-    
-    with col3:
-        year_range = st.slider(
-            "Year Range",
-            min_value=2006,
-            max_value=2021,
-            value=(2006, 2021)
-        )
+    # Filters in clean container
+    with st.container():
+        col1, col2, col3 = st.columns(3)
+        
+        commodity_options = sorted(staples['cm_name'].unique())
+        region_options = ['All Regions'] + sorted(staples['adm1_name'].unique().tolist())
+        
+        with col1:
+            selected_commodity = st.selectbox(
+                "🌽 Select Commodity",
+                commodity_options,
+                key="price_commodity"
+            )
+        
+        with col2:
+            selected_region = st.selectbox(
+                "📍 Select Region",
+                region_options,
+                key="price_region"
+            )
+        
+        with col3:
+            year_range = st.slider(
+                "📅 Year Range",
+                min_value=2006,
+                max_value=2021,
+                value=(2006, 2021),
+                key="price_year"
+            )
     
     # Filter data
     filtered_data = staples[staples['cm_name'] == selected_commodity].copy()
@@ -508,87 +698,354 @@ elif page == "📊 Price Explorer":
         filtered_data = filtered_data[filtered_data['adm1_name'] == selected_region]
     
     if len(filtered_data) == 0:
-        st.warning("No data available for selected filters. Try different options.")
+        st.markdown("""
+        <div class='warning-box'>
+            ⚠️ No data available for selected filters. Try different options.
+        </div>
+        """, unsafe_allow_html=True)
         st.stop()
     
-    # Aggregate
+    # Aggregate data
     price_trend = filtered_data.groupby('date')['mp_price'].agg(['mean', 'std', 'count']).reset_index()
     price_trend.columns = ['date', 'price', 'std', 'count']
     
-    # Main price chart
-    fig = go.Figure()
+    # ==========================================================================
+    # IMPROVED GRAPH - With better visibility
+    # ==========================================================================
     
-    fig.add_trace(go.Scatter(
-        x=price_trend['date'],
-        y=price_trend['price'],
-        mode='lines',
-        name='Price',
-        line=dict(color='#3498db', width=3),
-        fill='tonexty'
-    ))
-    
-    # Add confidence band
-    if 'std' in price_trend.columns:
-        fig.add_trace(go.Scatter(
-            x=price_trend['date'],
-            y=price_trend['price'] + price_trend['std'],
-            mode='lines',
-            name='Upper Bound',
-            line=dict(width=0),
-            showlegend=False
-        ))
-        
-        fig.add_trace(go.Scatter(
-            x=price_trend['date'],
-            y=price_trend['price'] - price_trend['std'],
-            mode='lines',
-            name='Lower Bound',
-            line=dict(width=0),
-            fillcolor='rgba(52, 152, 219, 0.2)',
-            fill='tonexty',
-            showlegend=False
-        ))
-    
-    fig.update_layout(
-        title=f"{selected_commodity} Price Trend",
-        xaxis_title='Date',
-        yaxis_title='Price (KES/kg)',
-        hovermode='x unified',
-        height=500
+    # Create figure with subplots
+    fig = make_subplots(
+        rows=2, cols=1,
+        shared_xaxes=True,
+        vertical_spacing=0.15,
+        subplot_titles=('📈 Price Trend with Confidence Band', '📊 Data Density & Trading Volume'),
+        row_heights=[0.7, 0.3]
     )
     
+    # Main price line - darker and thicker
+    fig.add_trace(
+        go.Scatter(
+            x=price_trend['date'],
+            y=price_trend['price'],
+            mode='lines+markers',
+            name='Average Price',
+            line=dict(color='#b22222', width=3),  # Firebrick red
+            marker=dict(
+                size=8,
+                color=price_trend['price'],
+                colorscale='Viridis',
+                showscale=True,
+                colorbar=dict(
+                    title="Price<br>(KES/kg)",
+                    x=1.02,
+                    tickfont=dict(size=10, color='#1e3c72'),
+                    titlefont=dict(size=11, color='#1e3c72')
+                )
+            ),
+            hovertemplate='<b>Date</b>: %{x|%b %Y}<br><b>Price</b>: %{y:.2f} KES/kg<extra></extra>'
+        ),
+        row=1, col=1
+    )
+    
+    # Add confidence interval
+    fig.add_trace(
+        go.Scatter(
+            x=price_trend['date'].tolist() + price_trend['date'].tolist()[::-1],
+            y=(price_trend['price'] + price_trend['std']).tolist() + 
+              (price_trend['price'] - price_trend['std']).tolist()[::-1],
+            fill='toself',
+            fillcolor='rgba(178, 34, 34, 0.15)',  # Firebrick with low opacity
+            line=dict(color='rgba(0,0,0,0)'),
+            hoverinfo='skip',
+            showlegend=True,
+            name='Price Range (±1σ)'
+        ),
+        row=1, col=1
+    )
+    
+    # Add moving average
+    if len(price_trend) > 3:
+        price_trend['ma_3'] = price_trend['price'].rolling(window=3, min_periods=1).mean()
+        fig.add_trace(
+            go.Scatter(
+                x=price_trend['date'],
+                y=price_trend['ma_3'],
+                mode='lines',
+                name='3-Month Average',
+                line=dict(color='#1e3c72', width=2, dash='dash'),
+                hovertemplate='<b>Date</b>: %{x|%b %Y}<br><b>MA(3)</b>: %{y:.2f} KES/kg<extra></extra>'
+            ),
+            row=1, col=1
+        )
+    
+    # Volume/Data density subplot
+    fig.add_trace(
+        go.Bar(
+            x=price_trend['date'],
+            y=price_trend['count'],
+            name='Data Points',
+            marker_color='#2d6a4f',  # Dark green
+            marker_line_color='#1e3c72',
+            marker_line_width=1,
+            opacity=0.8,
+            hovertemplate='<b>Date</b>: %{x|%b %Y}<br><b>Records</b>: %{y} prices<extra></extra>'
+        ),
+        row=2, col=1
+    )
+    
+    # Update layout with proper text colors
+    fig.update_layout(
+        title={
+            'text': f"<b>{selected_commodity}</b> - Historical Price Analysis",
+            'x': 0.5,
+            'xanchor': 'center',
+            'font': dict(size=20, color='#1e3c72', family='Arial Black')
+        },
+        height=700,
+        showlegend=True,
+        legend=dict(
+            orientation='h',
+            yanchor='bottom',
+            y=1.02,
+            xanchor='right',
+            x=1,
+            font=dict(size=11, color='#1e3c72'),
+            bgcolor='rgba(255,255,255,0.8)',
+            bordercolor='#d1d5db',
+            borderwidth=1
+        ),
+        hovermode='x unified',
+        plot_bgcolor='#ffffff',
+        paper_bgcolor='#ffffff',
+        font=dict(color='#1e3c72', size=11)
+    )
+    
+    # Update axes with proper colors
+    fig.update_xaxes(
+        title_text="",
+        showgrid=True,
+        gridcolor='#e5e7eb',
+        gridwidth=1,
+        tickfont=dict(size=10, color='#1e3c72'),
+        titlefont=dict(size=11, color='#1e3c72'),
+        linecolor='#9ca3af',
+        linewidth=1,
+        row=1, col=1
+    )
+    
+    fig.update_xaxes(
+        title_text="Date",
+        showgrid=True,
+        gridcolor='#e5e7eb',
+        gridwidth=1,
+        tickfont=dict(size=10, color='#1e3c72'),
+        titlefont=dict(size=11, color='#1e3c72'),
+        linecolor='#9ca3af',
+        linewidth=1,
+        row=2, col=1
+    )
+    
+    fig.update_yaxes(
+        title_text="Price (KES/kg)",
+        showgrid=True,
+        gridcolor='#e5e7eb',
+        gridwidth=1,
+        tickfont=dict(size=10, color='#1e3c72'),
+        titlefont=dict(size=11, color='#1e3c72'),
+        ticksuffix=" KES",
+        linecolor='#9ca3af',
+        linewidth=1,
+        row=1, col=1
+    )
+    
+    fig.update_yaxes(
+        title_text="Records",
+        showgrid=True,
+        gridcolor='#e5e7eb',
+        gridwidth=1,
+        tickfont=dict(size=10, color='#1e3c72'),
+        titlefont=dict(size=11, color='#1e3c72'),
+        linecolor='#9ca3af',
+        linewidth=1,
+        row=2, col=1
+    )
+    
+    # Display the graph
     st.plotly_chart(fig, use_container_width=True)
     
-    # Statistics
+    # ==========================================================================
+    # KEY STATISTICS - With dark text on light background
+    # ==========================================================================
+    st.markdown("<h2 class='section-header'>📊 Key Statistics</h2>", unsafe_allow_html=True)
+    
     col1, col2, col3, col4 = st.columns(4)
     
+    avg_price = price_trend['price'].mean()
+    max_price = price_trend['price'].max()
+    min_price = price_trend['price'].min()
+    cv = (price_trend['price'].std() / avg_price * 100) if avg_price > 0 else 0
+    
     with col1:
-        st.metric("Average Price", f"{price_trend['price'].mean():.2f} KES")
+        st.markdown(f"""
+        <div class='metric-card'>
+            <div class='metric-label'>💰 Average Price</div>
+            <div class='metric-value'>{avg_price:.2f}</div>
+            <div class='metric-unit'>KES per kilogram</div>
+        </div>
+        """, unsafe_allow_html=True)
+    
     with col2:
-        st.metric("Max Price", f"{price_trend['price'].max():.2f} KES")
+        st.markdown(f"""
+        <div class='metric-card'>
+            <div class='metric-label'>📈 Maximum Price</div>
+            <div class='metric-value'>{max_price:.2f}</div>
+            <div class='metric-unit'>KES per kilogram</div>
+        </div>
+        """, unsafe_allow_html=True)
+    
     with col3:
-        st.metric("Min Price", f"{price_trend['price'].min():.2f} KES")
+        st.markdown(f"""
+        <div class='metric-card'>
+            <div class='metric-label'>📉 Minimum Price</div>
+            <div class='metric-value'>{min_price:.2f}</div>
+            <div class='metric-unit'>KES per kilogram</div>
+        </div>
+        """, unsafe_allow_html=True)
+    
     with col4:
-        cv = (price_trend['price'].std() / price_trend['price'].mean() * 100) if price_trend['price'].mean() > 0 else 0
-        st.metric("Volatility", f"{cv:.1f}%")
-
-
+        st.markdown(f"""
+        <div class='metric-card'>
+            <div class='metric-label'>⚡ Volatility</div>
+            <div class='metric-value'>{cv:.1f}%</div>
+            <div class='metric-unit'>Price fluctuation</div>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    # ==========================================================================
+    # MARKET INSIGHTS - With dark text on white background
+    # ==========================================================================
+    st.markdown("<h2 class='section-header'>💡 Market Insights</h2>", unsafe_allow_html=True)
+    
+    # Calculate insights
+    recent_price = price_trend['price'].iloc[-1] if len(price_trend) > 0 else 0
+    price_change = ((price_trend['price'].iloc[-1] - price_trend['price'].iloc[0]) / price_trend['price'].iloc[0] * 100) if len(price_trend) > 1 else 0
+    
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        st.markdown(f"""
+        <div class='insight-card insight-buyer'>
+            <h4>🛒 For Buyers & Retailers</h4>
+            <p><strong>Current Market Price:</strong> <span class='price-tag'>{recent_price:.2f} KES/kg</span></p>
+            <p><strong>Price Trend:</strong> {price_change:+.1f}% over selected period</p>
+            <p><strong>Market Insights:</strong></p>
+            <ul>
+                <li><span style='color:#2d6a4f; font-weight:600;'>Average price:</span> {avg_price:.2f} KES/kg</li>
+                <li><span style='color:#2d6a4f; font-weight:600;'>Price range:</span> {min_price:.2f} - {max_price:.2f} KES/kg</li>
+                <li><span style='color:#2d6a4f; font-weight:600;'>Best buying opportunity:</span> Buy when price is below {avg_price:.2f} KES</li>
+                <li><span style='color:#2d6a4f; font-weight:600;'>Suggested retail margin:</span> 15-20% above cost</li>
+            </ul>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    with col2:
+        wholesale_price = avg_price * 0.85
+        st.markdown(f"""
+        <div class='insight-card insight-seller'>
+            <h4>🌾 For Sellers & Wholesalers</h4>
+            <p><strong>Estimated Wholesale Price:</strong> <span class='price-tag'>{wholesale_price:.2f} KES/kg</span></p>
+            <p><strong>Market Volatility:</strong> {cv:.1f}% ({'High' if cv > 20 else 'Moderate' if cv > 10 else 'Stable'})</p>
+            <p><strong>Selling Strategy:</strong></p>
+            <ul>
+                <li><span style='color:#b22222; font-weight:600;'>Peak price achieved:</span> {max_price:.2f} KES/kg</li>
+                <li><span style='color:#b22222; font-weight:600;'>Target selling price:</span> {max_price * 0.9:.2f} KES/kg</li>
+                <li><span style='color:#b22222; font-weight:600;'>Volume discount:</span> 5-10% for bulk orders</li>
+                <li><span style='color:#b22222; font-weight:600;'>Monitor:</span> {selected_region if selected_region != 'All Regions' else 'regional'} trends</li>
+            </ul>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    # Additional insights
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        st.markdown(f"""
+        <div class='insight-card insight-retail'>
+            <h4>🏪 Retail Price Guide</h4>
+            <ul>
+                <li><span style='color:#1e3c72; font-weight:600;'>Small quantity</span> (1-5 kg): {avg_price * 1.3:.2f} KES/kg</li>
+                <li><span style='color:#1e3c72; font-weight:600;'>Medium quantity</span> (6-20 kg): {avg_price * 1.2:.2f} KES/kg</li>
+                <li><span style='color:#1e3c72; font-weight:600;'>Bulk quantity</span> (20+ kg): {avg_price * 1.1:.2f} KES/kg</li>
+                <li><span style='color:#1e3c72; font-weight:600;'>Daily sales estimate:</span> {50 + int(cv):.0f}-{100 + int(cv):.0f} kg</li>
+            </ul>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    with col2:
+        data_quality = "Excellent" if len(filtered_data) > 1000 else "Good" if len(filtered_data) > 500 else "Fair"
+        st.markdown(f"""
+        <div class='insight-card insight-wholesale'>
+            <h4>📦 Market Analysis</h4>
+            <ul>
+                <li><span style='color:#b85e00; font-weight:600;'>Data coverage:</span> {len(filtered_data):,} price records</li>
+                <li><span style='color:#b85e00; font-weight:600;'>Data quality:</span> {data_quality}</li>
+                <li><span style='color:#b85e00; font-weight:600;'>Price stability:</span> {'Stable' if cv < 15 else 'Moderate' if cv < 30 else 'Volatile'}</li>
+                <li><span style='color:#b85e00; font-weight:600;'>Trading opportunity:</span> {'Good' if cv > 15 else 'Regular'}</li>
+            </ul>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    # Market summary - white text on dark background
+    st.markdown(f"""
+    <div class='summary-box'>
+        <h4 style='color: white; margin-top: 0;'>📋 Market Summary</h4>
+        <p style='color: white; margin-bottom: 0;'>
+            <strong style='color: #ffd966;'>{selected_commodity}</strong> in 
+            <strong style='color: #ffd966;'>{selected_region if selected_region != 'All Regions' else 'Kenya'}</strong> 
+            shows <strong style='color: #ffd966;'>{'high' if cv > 20 else 'moderate' if cv > 10 else 'stable'}</strong> price variability 
+            with an average of <strong style='color: #ffd966;'>{avg_price:.2f} KES/kg</strong>. 
+            {len(filtered_data):,} price records analyzed from {year_range[0]} to {year_range[1]}.
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
 
 
 # ============================================================================
-# PAGE: INFLATION CALCULATOR - COMPLETE POLISHED VERSION
+# PAGE: INFLATION CALCULATOR
 # ============================================================================
 elif page == "💰 Inflation Calculator":
     st.markdown("<h1 class='main-header'>💰 Inflation Calculator</h1>", unsafe_allow_html=True)
     
     st.markdown("""
+    <style>
+        .info-box {
+            background-color: #e6f3ff;
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 5px solid #1e3c72;
+            margin: 1rem 0;
+        }
+        .info-box h4 {
+            color: #1e3c72;
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+        }
+        .info-box p {
+            color: #2c3e50;
+            margin: 0;
+        }
+        .info-box strong {
+            color: #b22222;
+        }
+    </style>
+
     <div class='info-box'>
-    <h4>How This Works</h4>
-    <p>Calculate the <strong>real cost impact</strong> of food price inflation on your household budget. 
-    This tool uses actual historical data to show how prices have changed.</p>
+        <h4>How This Works</h4>
+        <p>Calculate the <strong>real cost impact</strong> of food price inflation on your household budget. 
+        This tool uses actual historical data to show how prices have changed.</p>
     </div>
     """, unsafe_allow_html=True)
-    
+
     # User inputs
     col1, col2 = st.columns(2)
     
@@ -709,7 +1166,7 @@ elif page == "💰 Inflation Calculator":
                 col_a, col_b, col_c = st.columns(3)
 
                 with col_a:
-                    # Impact severity card - NO FIXED HEIGHT
+                    # Impact severity card
                     if percent_change > 50:
                         impact_color = "#e74c3c"
                         impact_icon = "🔴"
@@ -745,7 +1202,7 @@ elif page == "💰 Inflation Calculator":
                     """, unsafe_allow_html=True)
 
                 with col_b:
-                    # Purchasing power card - NO FIXED HEIGHT
+                    # Purchasing power card
                     if percent_change > 0:
                         power_text = f"Your KES now buys {purchasing_power_erosion:.1f}% less {calc_commodity} than in {start_year}"
                         power_detail = f"What cost 100 KES in {start_year} now costs {100 * (1 + percent_change/100):.0f} KES"
@@ -763,7 +1220,7 @@ elif page == "💰 Inflation Calculator":
                     """, unsafe_allow_html=True)
 
                 with col_c:
-                    # Budget impact card - NO FIXED HEIGHT
+                    # Budget impact card
                     monthly_percent = (monthly_increase / start_cost) * 100 if start_cost > 0 else 0
                     yearly_total = end_cost * 12
                     yearly_total_start = start_cost * 12
@@ -779,11 +1236,11 @@ elif page == "💰 Inflation Calculator":
                     """, unsafe_allow_html=True)
 
                 # ===== BUYER & SELLER STRATEGIC RECOMMENDATIONS =====
-                
                 st.markdown("### 🎯 Strategic Recommendations")
 
                 # Determine commodity category for targeted advice
                 commodity_lower = calc_commodity.lower()
+                
                 if 'maize' in commodity_lower or 'wheat' in commodity_lower or 'rice' in commodity_lower:
                     category = "Staple Grain"
                     buyer_advice = [
@@ -859,47 +1316,46 @@ elif page == "💰 Inflation Calculator":
                 col_buyer, col_seller = st.columns(2)
 
                 with col_buyer:
-                    # Format buyer advice as HTML with proper bold using <strong> tags
+                    # Format buyer advice as HTML with proper bold
                     buyer_html = ""
                     for advice in buyer_advice:
-                        # Split at the first colon or dash to identify the bold part
                         if ":" in advice:
                             parts = advice.split(":", 1)
-                            buyer_html += f"<li><strong>{parts[0]}:</strong>{parts[1]}</li>"
-                        elif "-" in advice[:20]:  # Check if dash is within first 20 chars
+                            buyer_html += f"<li><strong style='color:#1e3c72;'>{parts[0]}:</strong><span style='color:#2c3e50;'>{parts[1]}</span></li>"
+                        elif "-" in advice[:20]:
                             parts = advice.split("-", 1)
-                            buyer_html += f"<li><strong>{parts[0]}-</strong>{parts[1]}</li>"
+                            buyer_html += f"<li><strong style='color:#1e3c72;'>{parts[0]}-</strong><span style='color:#2c3e50;'>{parts[1]}</span></li>"
                         else:
-                            buyer_html += f"<li>{advice}</li>"
+                            buyer_html += f"<li style='color:#2c3e50;'>{advice}</li>"
                     
                     st.markdown(f"""
-                    <div style='background: #e8f4fd; padding: 1rem; border-radius: 10px; height: 300px; overflow-y: auto;'>
-                        <h4 style='margin:0; color: #3498db;'>🛒 For Buyers</h4>
-                        <p style='margin-top: 0.5rem; font-size: 0.9rem; font-style: italic;'>How to save money on {calc_commodity}</p>
-                        <ul style='margin-top: 0.5rem; padding-left: 1.2rem;'>
+                    <div style='background: #e8f4fd; padding: 1rem; border-radius: 10px; height: 300px; overflow-y: auto; border-left: 5px solid #1e3c72;'>
+                        <h4 style='margin:0; color: #1e3c72;'>🛒 For Buyers</h4>
+                        <p style='margin-top: 0.5rem; font-size: 0.9rem; font-style: italic; color: #2c3e50;'>How to save money on {calc_commodity}</p>
+                        <ul style='margin-top: 0.5rem; padding-left: 1.2rem; color: #2c3e50;'>
                             {buyer_html}
                         </ul>
                     </div>
                     """, unsafe_allow_html=True)
 
                 with col_seller:
-                    # Format seller advice as HTML with proper bold using <strong> tags
+                    # Format seller advice as HTML with proper bold
                     seller_html = ""
                     for advice in seller_advice:
                         if ":" in advice:
                             parts = advice.split(":", 1)
-                            seller_html += f"<li><strong>{parts[0]}:</strong>{parts[1]}</li>"
+                            seller_html += f"<li><strong style='color:#b85e00;'>{parts[0]}:</strong><span style='color:#2c3e50;'>{parts[1]}</span></li>"
                         elif "-" in advice[:20]:
                             parts = advice.split("-", 1)
-                            seller_html += f"<li><strong>{parts[0]}-</strong>{parts[1]}</li>"
+                            seller_html += f"<li><strong style='color:#b85e00;'>{parts[0]}-</strong><span style='color:#2c3e50;'>{parts[1]}</span></li>"
                         else:
-                            seller_html += f"<li>{advice}</li>"
+                            seller_html += f"<li style='color:#2c3e50;'>{advice}</li>"
                     
                     st.markdown(f"""
-                    <div style='background: #fef5e7; padding: 1rem; border-radius: 10px; height: 300px; overflow-y: auto;'>
-                        <h4 style='margin:0; color: #f39c12;'>🌾 For Sellers</h4>
-                        <p style='margin-top: 0.5rem; font-size: 0.9rem; font-style: italic;'>How to maximize profits on {calc_commodity}</p>
-                        <ul style='margin-top: 0.5rem; padding-left: 1.2rem;'>
+                    <div style='background: #fff5e6; padding: 1rem; border-radius: 10px; height: 300px; overflow-y: auto; border-left: 5px solid #b85e00;'>
+                        <h4 style='margin:0; color: #b85e00;'>🌾 For Sellers</h4>
+                        <p style='margin-top: 0.5rem; font-size: 0.9rem; font-style: italic; color: #2c3e50;'>How to maximize profits on {calc_commodity}</p>
+                        <ul style='margin-top: 0.5rem; padding-left: 1.2rem; color: #2c3e50;'>
                             {seller_html}
                         </ul>
                     </div>
@@ -911,6 +1367,7 @@ elif page == "💰 Inflation Calculator":
                 # Calculate future projection
                 future_projection = []
                 projection_years = 5
+                
                 for i in range(projection_years + 1):
                     future_year = end_year + i
                     if i == 0:
@@ -925,6 +1382,7 @@ elif page == "💰 Inflation Calculator":
                 proj_df['annual_cost'] = proj_df['monthly_cost'] * 12
                 
                 fig_proj = go.Figure()
+                
                 fig_proj.add_trace(go.Scatter(
                     x=proj_df['year'],
                     y=proj_df['annual_cost'],
@@ -956,6 +1414,7 @@ elif page == "💰 Inflation Calculator":
 
                 # ===== REGIONAL PRICE CONTEXT =====
                 national_avg_end = staples[staples['date'].dt.year == end_year]['mp_price'].mean()
+                
                 if not pd.isna(national_avg_end) and national_avg_end > 0:
                     vs_national = ((end_avg - national_avg_end) / national_avg_end) * 100
                     
@@ -1003,19 +1462,19 @@ elif page == "💰 Inflation Calculator":
                         <h4 style='margin:0; color: #3498db;'>🔵 Immediate</h4>
                         <p style='font-size: 0.9rem; color: #7f8c8d; margin:0;'>Next 1-3 months</p>
                         <hr style='margin: 0.5rem 0;'>
-                        <p style='font-size: 1.2rem; font-weight: bold; margin:0;'>{monthly_increase:+,.0f} KES</p>
-                        <p style='font-size: 0.85rem; margin:0;'>Adjust monthly budget</p>
+                        <p style='font-size: 1.2rem; font-weight: bold; margin:0; color: {"#e74c3c" if monthly_increase > 0 else "#27ae60"};'>{monthly_increase:+,.0f} KES</p>
+                        <p style='font-size: 0.85rem; margin:0; color: #2c3e50;'>Adjust monthly budget</p>
                     </div>
                     """, unsafe_allow_html=True)
-
+                
                 with timeline_col2:
                     st.markdown(f"""
                     <div style='text-align: center; padding: 1rem; background: #fef5e7; border-radius: 10px; height: 160px;'>
                         <h4 style='margin:0; color: #f39c12;'>🟡 Short-term</h4>
                         <p style='font-size: 0.9rem; color: #7f8c8d; margin:0;'>Next 3-12 months</p>
                         <hr style='margin: 0.5rem 0;'>
-                        <p style='font-size: 1.2rem; font-weight: bold; margin:0;'>{annual_increase:+,.0f} KES</p>
-                        <p style='font-size: 0.85rem; margin:0;'>Extra yearly cost</p>
+                        <p style='font-size: 1.2rem; font-weight: bold; margin:0; color: #f39c12;'>{annual_increase:+,.0f} KES</p>
+                        <p style='font-size: 0.85rem; margin:0; color: #2c3e50;'>Extra yearly cost</p>
                     </div>
                     """, unsafe_allow_html=True)
 
@@ -1028,11 +1487,12 @@ elif page == "💰 Inflation Calculator":
                         <h4 style='margin:0; color: #27ae60;'>🟢 Long-term</h4>
                         <p style='font-size: 0.9rem; color: #7f8c8d; margin:0;'>By {future_year}</p>
                         <hr style='margin: 0.5rem 0;'>
-                        <p style='font-size: 1.2rem; font-weight: bold; margin:0;'>{future_cost:,.0f} KES</p>
-                        <p style='font-size: 0.85rem; margin:0;'>Projected yearly cost</p>
+                        <p style='font-size: 1.2rem; font-weight: bold; margin:0; color: #27ae60;'>{future_cost:,.0f} KES</p>
+                        <p style='font-size: 0.85rem; margin:0; color: #2c3e50;'>Projected yearly cost</p>
                     </div>
                     """, unsafe_allow_html=True)
 
+               
                 # ===== DISCLAIMER =====
                 st.markdown("""
                 ---
@@ -1044,7 +1504,6 @@ elif page == "💰 Inflation Calculator":
                 """, unsafe_allow_html=True)
 
 
-
 # ============================================================================
 # PAGE: PRICE FORECASTS - INNOVATIVE SMART VERSION
 # ============================================================================
@@ -1052,12 +1511,35 @@ elif page == "🔮 Price Forecasts":
     st.markdown("<h1 class='main-header'>🔮 Smart Price Forecasting</h1>", unsafe_allow_html=True)
     
     st.markdown("""
+    <style>
+        .info-box {
+            background-color: #f0f0f0;  /* Light gray background */
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 5px solid #1e3c72;  /* Dark blue border */
+            margin: 1rem 0;
+        }
+        .info-box h4 {
+            color: #1e3c72;  /* Dark blue text */
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+        }
+        .info-box p {
+            color: #2c3e50;  /* Dark gray text */
+            margin: 0;
+        }
+        .info-box strong {
+            color: #b22222;  /* Red for emphasis */
+        }
+    </style>
+
     <div class='info-box'>
-    <h4>🎯 AI-Powered Predictive Intelligence</h4>
-    <p>Our advanced forecasting engine analyzes <strong>15+ years of historical data, seasonal patterns, and market trends</strong> 
-    to generate intelligent price predictions. We're transparent about uncertainty - longer forecasts show wider confidence intervals.</p>
+        <h4>🎯 AI-Powered Predictive Intelligence</h4>
+        <p>Our advanced forecasting engine analyzes <strong>15+ years of historical data, seasonal patterns, and market trends</strong> 
+        to generate intelligent price predictions. We're transparent about uncertainty - longer forecasts show wider confidence intervals.</p>
     </div>
     """, unsafe_allow_html=True)
+
     
     # Get all commodities
     all_commodities = sorted(staples['cm_name'].unique())
@@ -1749,9 +2231,9 @@ elif page == "📈 Market Intelligence":
     st.markdown("<h1 class='main-header'>📈 Market Intelligence</h1>", unsafe_allow_html=True)
     
     st.markdown("""
-    <div class='info-box'>
-    <h4>Deep Market Analysis</h4>
-    <p>Comprehensive insights combining regional variations, seasonal patterns, and market dynamics.</p>
+    <div class='info-box' style='background-color:#A07178; border-left:5px solid #1e3c72; padding:1.5rem; border-radius:10px; margin:1rem 0;'>
+        <h4 style='color:#ffffff; margin-top:0; margin-bottom:0.5rem;'>Deep Market Analysis</h4>
+        <p style='color:#ffffff; margin:0;'>Comprehensive insights combining regional variations, seasonal patterns, and market dynamics.</p>
     </div>
     """, unsafe_allow_html=True)
     
@@ -1927,43 +2409,136 @@ elif page == "ℹ️ About":
 # PAGE: DEVELOPER
 # ============================================================================
 elif page == "👨‍💻 Developer":
-    st.markdown("<h1 class='main-header'>👨‍💻 Developer</h1>", unsafe_allow_html=True)
+    # Custom CSS for Developer page
+    st.markdown("""
+    <style>
+        .dev-header {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: #1e3c72;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .dev-card {
+            background-color: #ffffff;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin: 1rem 0;
+            border: 1px solid #e0e0e0;
+        }
+        .skill-tag {
+            background-color: #1e3c72;
+            color: white;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            display: inline-block;
+            margin: 0.2rem;
+        }
+    </style>
+    """, unsafe_allow_html=True)
     
-    col1, col2 = st.columns([1, 2])
+    st.markdown("<h1 class='dev-header'>👨‍💻 Developer</h1>", unsafe_allow_html=True)
     
-    with col1:
-        st.image("https://cdn-icons-png.flaticon.com/512/3135/3135715.png", width=150)
-    
-    with col2:
-        st.markdown("""
-        # Stephen Muema
-        ## Data Scientist & Machine Learning Engineer
-        
-        Transforming complex datasets into actionable insights.
-        
-        [![GitHub](https://img.shields.io/badge/GitHub-Follow-black?logo=github)](https://github.com/Kaks753)
-        [![Portfolio](https://img.shields.io/badge/Portfolio-Visit-green)](https://muemastephenportfolio.netlify.app/)
-        """)
+    # Profile section - centered without image and without duplicate links
+    st.markdown("""
+    <div style='text-align: center; padding: 1rem 0 2rem 0;'>
+        <h1 style='color:#1e3c72; margin:0; font-size:2.5rem;'>Stephen Muema</h1>
+        <h3 style='color:#b22222; margin:0.5rem 0 1rem 0; font-size:1.5rem;'>Data Scientist & Machine Learning Engineer</h3>
+        <p style='color:#FFFFFF; font-size:1.2rem; max-width:800px; margin:0 auto;'>
+            Transforming complex datasets into actionable insights through advanced analytics and machine learning.
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
     
     st.markdown("---")
     
-    st.markdown("""
-    ### Skills
-    - Python, Pandas, NumPy
-    - Machine Learning
-    - Data Visualization
-    - Streamlit
+    # Skills and Expertise
+    col1, col2 = st.columns(2)
     
-    ### About This Project
-    The Kenya Food Price Intelligence System demonstrates end-to-end data science 
-    capabilities from data cleaning to interactive deployment.
-    """)
-
-# Footer
-st.markdown("---")
-st.markdown("""
-<div style='text-align: center; color: #7f8c8d; padding: 1rem 0;'>
-    <p><strong>Kenya Food Price Intelligence System</strong> | Developed by Stephen Muema | 2024</p>
-    <p>Data Source: World Food Programme (WFP)</p>
-</div>
-""", unsafe_allow_html=True)
+    with col1:
+        st.markdown("""
+        <div class='dev-card'>
+            <h3 style='color:#1e3c72; margin-top:0;'>🛠️ Technical Skills</h3>
+            <div style='margin: 1rem 0;'>
+                <span class='skill-tag'>Python</span>
+                <span class='skill-tag'>Pandas</span>
+                <span class='skill-tag'>NumPy</span>
+                <span class='skill-tag'>Scikit-learn</span>
+                <span class='skill-tag'>TensorFlow</span>
+                <span class='skill-tag'>Machine Learning</span>
+                <span class='skill-tag'>Deep Learning</span>
+                <span class='skill-tag'>Time Series</span>
+                <span class='skill-tag'>Plotly</span>
+                <span class='skill-tag'>Matplotlib</span>
+                <span class='skill-tag'>Seaborn</span>
+                <span class='skill-tag'>Streamlit</span>
+                <span class='skill-tag'>SQL</span>
+                <span class='skill-tag'>Git</span>
+                <span class='skill-tag'>Docker</span>
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    with col2:
+        st.markdown("""
+        <div class='dev-card'>
+            <h3 style='color:#1e3c72; margin-top:0;'>📊 Specializations</h3>
+            <ul style='color:#2c3e50; font-size:1rem; line-height:1.8;'>
+                <li><strong>Predictive Modeling:</strong> Time series forecasting, regression analysis</li>
+                <li><strong>Data Visualization:</strong> Interactive dashboards, business intelligence</li>
+                <li><strong>Market Analysis:</strong> Price trends, demand forecasting, economic indicators</li>
+                <li><strong>ML Ops:</strong> Model deployment, pipeline automation, monitoring</li>
+            </ul>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    # Experience & Education
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        st.markdown("""
+        <div class='dev-card'>
+            <h3 style='color:#1e3c72; margin-top:0;'>💼 Experience</h3>
+            <ul style='color:#2c3e50; font-size:1rem; line-height:1.8;'>
+                <li><strong>Data Scientist</strong> - Current</li>
+                <li><strong>ML Engineer</strong> - 2+ years</li>
+                <li><strong>Data Analyst</strong> - 3+ years</li>
+            </ul>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    with col2:
+        st.markdown("""
+        <div class='dev-card'>
+            <h3 style='color:#1e3c72; margin-top:0;'>🎓 Education</h3>
+            <ul style='color:#2c3e50; font-size:1rem; line-height:1.8;'>
+                <li><strong>MSc Data Science</strong></li>
+                <li><strong>BSc Computer Science</strong></li>
+                <li><strong>Certifications:</strong> ML, Deep Learning</li>
+            </ul>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    # Connect section
+    st.markdown("""
+    <div style='background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); padding: 2rem; border-radius: 15px; margin: 2rem 0; text-align: center;'>
+        <h3 style='color: white; margin-top: 0;'>🤝 Let's Connect</h3>
+        <p style='color: white; font-size: 1.1rem; margin-bottom: 1.5rem;'>
+            Open to collaboration and data science opportunities
+        </p>
+        <div style='display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;'>
+            <a href='https://github.com/Kaks753' target='_blank' style='text-decoration: none;'>
+                <span style='background-color: white; color: #1e3c72; padding: 0.5rem 1.5rem; border-radius: 25px; font-weight: 600;'>💻 GitHub</span>
+            </a>
+            <a href='https://muemastephenportfolio.netlify.app/' target='_blank' style='text-decoration: none;'>
+                <span style='background-color: white; color: #1e3c72; padding: 0.5rem 1.5rem; border-radius: 25px; font-weight: 600;'>🌐 Portfolio</span>
+            </a>
+            <a href='https://linkedin.com/in/stephen-muema' target='_blank' style='text-decoration: none;'>
+                <span style='background-color: white; color: #1e3c72; padding: 0.5rem 1.5rem; border-radius: 25px; font-weight: 600;'>🔗 LinkedIn</span>
+            </a>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
