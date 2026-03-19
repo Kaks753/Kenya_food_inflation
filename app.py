@@ -291,8 +291,15 @@ with st.sidebar:
 # ============================================================================
 if page == "🏠 Home Dashboard":
     
-    # Personalized Welcome
-    current_hour = datetime.now().hour
+    # Personalized Welcome with LOCAL TIME
+    from datetime import datetime
+    import pytz
+    
+    # Get Nairobi time (Kenya's timezone)
+    nairobi_tz = pytz.timezone('Africa/Nairobi')
+    nairobi_time = datetime.now(nairobi_tz)
+    current_hour = nairobi_time.hour
+    
     if current_hour < 12:
         greeting = "Good Morning"
     elif current_hour < 17:
@@ -300,15 +307,15 @@ if page == "🏠 Home Dashboard":
     else:
         greeting = "Good Evening"
     
-    if 'user_name' not in st.session_state:
-        st.session_state.user_name = "Visitor"
-    
+    # Better welcome message without "Visitor"
     st.markdown(f"""
     <h1 class='main-header'>
-        {greeting}, {st.session_state.user_name}! 🌾
+        {greeting}! 🌾
     </h1>
-    """, unsafe_allow_html=True)
-    
+    <p style='text-align: center; font-size: 1.2rem; color: #ffffff; margin-top: -0.5rem;'>
+        Welcome to Kenya's Food Price Intelligence System
+    </p>
+    """, unsafe_allow_html=True)  
 
     # welcome message section
     st.markdown("""
