@@ -2419,15 +2419,15 @@ elif page == "👨‍💻 Developer":
     st.markdown("""
     <style>
         .dev-header {
-            font-size: 2.8rem;
+            font-size: 2.5rem;
             font-weight: 700;
             color: #1e3c72;
             text-align: center;
-            margin-bottom: 2rem;
+            margin-bottom: 1rem;
         }
         .dev-card {
             background-color: #ffffff;
-            padding: 2rem;
+            padding: 1.5rem;
             border-radius: 15px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             margin: 1rem 0;
@@ -2448,12 +2448,12 @@ elif page == "👨‍💻 Developer":
     
     st.markdown("<h1 class='dev-header'>👨‍💻 Developer</h1>", unsafe_allow_html=True)
     
-    # Profile section - centered without image and without duplicate links
+    # Profile section 
     st.markdown("""
-    <div style='text-align: center; padding: 1rem 0 2rem 0;'>
-        <h1 style='color:#1e3c72; margin:0; font-size:2.5rem;'>Stephen Muema</h1>
-        <h3 style='color:#b22222; margin:0.5rem 0 1rem 0; font-size:1.5rem;'>Data Scientist & Machine Learning Engineer</h3>
-        <p style='color:#FFFFFF; font-size:1.2rem; max-width:800px; margin:0 auto;'>
+    <div style='text-align: center; padding: 0.5rem 0 1rem 0;'>
+        <h1 style='color:#1e3c72; margin:0; font-size:2.2rem;'>Stephen Muema</h1>
+        <h3 style='color:#b22222; margin:0.3rem 0 0.5rem 0; font-size:1.3rem;'>Data Scientist & Machine Learning Engineer</h3>
+        <p style='color:#2c3e50; font-size:1.1rem; max-width:700px; margin:0 auto;'>
             Transforming complex datasets into actionable insights through advanced analytics and machine learning.
         </p>
     </div>
@@ -2528,7 +2528,7 @@ elif page == "👨‍💻 Developer":
         </div>
         """, unsafe_allow_html=True)
     
-    # Connect section
+    # Connect section 
     st.markdown("""
     <div style='background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); padding: 2rem; border-radius: 15px; margin: 2rem 0; text-align: center;'>
         <h3 style='color: white; margin-top: 0;'>🤝 Let's Connect</h3>
@@ -2542,7 +2542,7 @@ elif page == "👨‍💻 Developer":
             <a href='https://muemastephenportfolio.netlify.app/' target='_blank' style='text-decoration: none;'>
                 <span style='background-color: white; color: #1e3c72; padding: 0.5rem 1.5rem; border-radius: 25px; font-weight: 600;'>🌐 Portfolio</span>
             </a>
-            <a href='https://linkedin.com/in/stephen-muema' target='_blank' style='text-decoration: none;'>
+            <a href='https://www.linkedin.com/in/stephen-muema-617339359' target='_blank' style='text-decoration: none;'>
                 <span style='background-color: white; color: #1e3c72; padding: 0.5rem 1.5rem; border-radius: 25px; font-weight: 600;'>🔗 LinkedIn</span>
             </a>
         </div>
