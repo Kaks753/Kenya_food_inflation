@@ -1,5 +1,5 @@
-#!/bin/bash
 # Quick push script for Food Inflation Tracker
+
 
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo "  🚀 PUSHING KENYA FOOD INFLATION TRACKER TO GITHUB"
