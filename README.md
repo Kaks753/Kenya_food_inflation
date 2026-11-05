@@ -8,7 +8,7 @@
 
 🔗 **Live Dashboard**: [Coming Soon - Streamlit Cloud]  
 👤 **Portfolio**: [https://muemastephenportfolio.netlify.app/](https://muemastephenportfolio.netlify.app/)  
-📂 **Repository**: [https://github.com/Kaks753/food-inflation](https://github.com/Kaks753/food-inflation)
+📂 **Repository**: [https://github.com/Kaks753/Kenya_food_inflation](https://github.com/Kaks753/Kenya_food_inflation)
 
 ---
 
@@ -125,7 +125,7 @@ food-inflation/
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/Kaks753/food-inflation.git
+git clone https://github.com/Kaks753/Kenya_food_inflation.git
 cd food-inflation
 ```
 
