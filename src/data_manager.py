@@ -11,7 +11,6 @@ from dataclasses import dataclass
 import warnings
 warnings.filterwarnings('ignore')
 
-from functools import lru_cache
 
 DATA_DIR = Path(__file__).parent.parent / "data"
 CLEAN_DIR = DATA_DIR / "clean"
@@ -29,9 +28,12 @@ class DataLoadResult:
     error: Optional[str] = None
 
 
-@lru_cache(maxsize=1)
 def load_all_data() -> DataLoadResult:
-    """Load all datasets with intelligent error handling"""
+    """Load all datasets with intelligent error handling.
+    
+    Note: This function returns DataLoadResult which can be cached by
+    the caller using @st.cache_data in Streamlit.
+    """
     result = DataLoadResult()
     
     try:
