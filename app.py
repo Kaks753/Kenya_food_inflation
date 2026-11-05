@@ -3,7 +3,7 @@ Kenya Food Price Inflation Tracker - Advanced Interactive Dashboard
 =====================================================================
 
 Author: Stephen Muema
-Portfolio: https://muemastephenportfolio.netlify.app/
+Portfolio: https://https://vercel-portfolio-delta.vercel.app/
 Repository: https://github.com/Kaks753/food-inflation
 """
 
